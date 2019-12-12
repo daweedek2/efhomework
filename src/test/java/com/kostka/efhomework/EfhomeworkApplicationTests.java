@@ -8,6 +8,7 @@ class EfhomeworkApplicationTests {
 
     @Test
     void contextLoads() {
+        // sonar needs it
     }
 
 }
