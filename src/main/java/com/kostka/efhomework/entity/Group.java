@@ -26,7 +26,7 @@ public class Group implements Serializable {
     private Set<Permission> revokedPermissions = new HashSet<>();
 
     public Group() {
-        // empty constructor
+        //empty constructor
     }
 
     public String getName() {

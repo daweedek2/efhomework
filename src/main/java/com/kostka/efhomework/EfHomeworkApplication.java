@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EfhomeworkApplication {
+public class EfHomeworkApplication {
 
     public static void main(final String[] args) {
-        SpringApplication.run(EfhomeworkApplication.class, args);
+        SpringApplication.run(EfHomeworkApplication.class, args);
     }
 
 }

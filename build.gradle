@@ -28,8 +28,12 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    implementation 'junit:junit:4.12'
 }
 
 test {
-    useJUnitPlatform()
+    test {
+        useJUnit()
+        maxHeapSize = '1G'
+    }
 }
