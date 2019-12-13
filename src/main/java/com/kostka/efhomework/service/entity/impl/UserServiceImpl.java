@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(final User user) {
+        logger.info("User '{}' is created.", user.getName());
         return userRepository.save(user);
     }
 
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(final String name) {
         try {
             userRepository.deleteById(name);
+            logger.info("User '{}' is deleted.", name);
         } catch (final EmptyResultDataAccessException e) {
             logger.error(e.getMessage(), e);
         }

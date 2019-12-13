@@ -28,6 +28,7 @@ public class GroupServiceImpl implements GroupService {
         final Group group = new Group();
         // validate unique name
         group.setName(name);
+        logger.info("Group '{}' is created.", name);
         return this.saveGroup(group);
     }
 
@@ -49,6 +50,7 @@ public class GroupServiceImpl implements GroupService {
     public void deleteGroup(final String name) {
         try {
             groupRepository.deleteById(name);
+            logger.info("Group '{}' is deleted.", name);
         } catch (final EmptyResultDataAccessException e) {
             logger.error(e.getMessage(), e);
         }

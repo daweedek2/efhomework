@@ -26,6 +26,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Permission createPermission(final String name) {
         final Permission permission = new Permission();
         permission.setName(name);
+        logger.info("Permission '{}' is created.", name);
         return permissionRepository.save(permission);
     }
 
@@ -42,6 +43,7 @@ public class PermissionServiceImpl implements PermissionService {
     public void deletePermission(final String name) {
         try {
             permissionRepository.deleteById(name);
+            logger.info("Permission '{}' is deleted.", name);
         } catch (final EmptyResultDataAccessException e) {
             logger.error(e.getMessage(), e);
         }
