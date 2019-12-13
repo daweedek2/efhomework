@@ -1,4 +1,4 @@
-package com.kostka.efhomework.service;
+package com.kostka.efhomework.service.register;
 
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PermissionServiceImpTest {
+public class PermissionServiceImplTest {
     private static final String TEST_PERMISSION_NAME = "VIEW_INCIDENT";
 
     @Mock

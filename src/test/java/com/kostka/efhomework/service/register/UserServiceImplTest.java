@@ -1,4 +1,4 @@
-package com.kostka.efhomework.service;
+package com.kostka.efhomework.service.register;
 
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
