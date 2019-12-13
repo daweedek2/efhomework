@@ -3,7 +3,6 @@ package com.kostka.efhomework.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -16,8 +15,8 @@ public class Group implements Serializable {
     @Id
     private String name;
 
-    @OneToOne
-    private Group parentGroup;
+    @ManyToMany
+    private Set<Group> parentGroup = new HashSet<>();
 
     @ManyToMany
     private Set<Permission> grantedPermissions = new HashSet<>();
@@ -37,11 +36,11 @@ public class Group implements Serializable {
         this.name = name;
     }
 
-    public Group getParentGroup() {
+    public Set<Group> getParentGroup() {
         return parentGroup;
     }
 
-    public void setParentGroup(final Group parentGroup) {
+    public void setParentGroup(final Set<Group> parentGroup) {
         this.parentGroup = parentGroup;
     }
 

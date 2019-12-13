@@ -3,7 +3,7 @@ package com.kostka.efhomework.service;
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.UserRepository;
-import com.kostka.efhomework.service.entity.impl.UserServiceImpl;
+import com.kostka.efhomework.service.management.entity.impl.UserServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

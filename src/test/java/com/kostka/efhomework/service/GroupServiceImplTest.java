@@ -3,7 +3,7 @@ package com.kostka.efhomework.service;
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.GroupRepository;
-import com.kostka.efhomework.service.entity.impl.GroupServiceImpl;
+import com.kostka.efhomework.service.management.entity.impl.GroupServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,9 +1,9 @@
-package com.kostka.efhomework.service.entity.impl;
+package com.kostka.efhomework.service.management.entity.impl;
 
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.GroupRepository;
-import com.kostka.efhomework.service.entity.GroupService;
+import com.kostka.efhomework.service.management.entity.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

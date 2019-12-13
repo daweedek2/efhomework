@@ -1,4 +1,4 @@
-package com.kostka.efhomework.service.entity;
+package com.kostka.efhomework.service.management.entity;
 
 import com.kostka.efhomework.entity.Permission;
 
