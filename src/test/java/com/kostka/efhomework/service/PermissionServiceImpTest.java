@@ -3,7 +3,7 @@ package com.kostka.efhomework.service;
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.PermissionRepository;
-import com.kostka.efhomework.service.management.entity.impl.PermissionServiceImpl;
+import com.kostka.efhomework.service.management.register.impl.PermissionServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

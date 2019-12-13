@@ -1,9 +1,9 @@
-package com.kostka.efhomework.service.management.entity.impl;
+package com.kostka.efhomework.service.management.register.impl;
 
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.UserRepository;
-import com.kostka.efhomework.service.management.entity.UserService;
+import com.kostka.efhomework.service.management.register.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserRepository userRepository;
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     public UserServiceImpl(final UserRepository userRepository) {
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(final User user) {
-        logger.info("User '{}' is created.", user.getName());
+        LOGGER.info("User '{}' is created.", user.getName());
         return userRepository.save(user);
     }
 
@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(final String name) {
         try {
             userRepository.deleteById(name);
-            logger.info("User '{}' is deleted.", name);
+            LOGGER.info("User '{}' is deleted.", name);
         } catch (final EmptyResultDataAccessException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

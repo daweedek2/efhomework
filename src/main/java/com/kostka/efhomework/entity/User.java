@@ -16,7 +16,7 @@ public class User implements Serializable {
     private String name;
 
     @ManyToMany
-    private Set<Group> groups = new HashSet<>();
+    private Set<Group> parentGroups = new HashSet<>();
 
     @ManyToMany
     private Set<Permission> grantedPermissions = new HashSet<>();
@@ -36,12 +36,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Group> getParentGroups() {
+        return parentGroups;
     }
 
-    public void setGroups(final Set<Group> groups) {
-        this.groups = groups;
+    public void setParentGroups(final Set<Group> groups) {
+        this.parentGroups = groups;
     }
 
     public Set<Permission> getGrantedPermissions() {
@@ -64,7 +64,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{"
                 + "name='" + name + '\''
-                + ", groups=" + groups
+                + ", groups=" + parentGroups
                 + ", grantedPermissions=" + grantedPermissions
                 + ", revokedPermissions=" + revokedPermissions
                 + '}';

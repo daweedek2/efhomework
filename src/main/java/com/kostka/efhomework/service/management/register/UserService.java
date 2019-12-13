@@ -1,4 +1,4 @@
-package com.kostka.efhomework.service.management.entity;
+package com.kostka.efhomework.service.management.register;
 
 import com.kostka.efhomework.entity.User;
 

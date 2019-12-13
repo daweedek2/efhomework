@@ -1,9 +1,9 @@
-package com.kostka.efhomework.service.management.entity.impl;
+package com.kostka.efhomework.service.management.register.impl;
 
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.PermissionRepository;
-import com.kostka.efhomework.service.management.entity.PermissionService;
+import com.kostka.efhomework.service.management.register.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PermissionServiceImpl.class);
     private PermissionRepository permissionRepository;
-    private Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     @Autowired
     public PermissionServiceImpl(final PermissionRepository permissionRepository) {
@@ -26,7 +26,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Permission createPermission(final String name) {
         final Permission permission = new Permission();
         permission.setName(name);
-        logger.info("Permission '{}' is created.", name);
+        LOGGER.info("Permission '{}' is created.", name);
         return permissionRepository.save(permission);
     }
 
@@ -43,9 +43,9 @@ public class PermissionServiceImpl implements PermissionService {
     public void deletePermission(final String name) {
         try {
             permissionRepository.deleteById(name);
-            logger.info("Permission '{}' is deleted.", name);
+            LOGGER.info("Permission '{}' is deleted.", name);
         } catch (final EmptyResultDataAccessException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

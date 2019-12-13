@@ -1,9 +1,9 @@
-package com.kostka.efhomework.service.management.entity.impl;
+package com.kostka.efhomework.service.management.register.impl;
 
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.repository.GroupRepository;
-import com.kostka.efhomework.service.management.entity.GroupService;
+import com.kostka.efhomework.service.management.register.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ import java.util.Optional;
 
 @Service
 public class GroupServiceImpl implements GroupService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupServiceImpl.class);
     private GroupRepository groupRepository;
-    private Logger logger = LoggerFactory.getLogger(GroupServiceImpl.class);
 
     @Autowired
     public GroupServiceImpl(final GroupRepository groupRepository) {
@@ -28,7 +28,7 @@ public class GroupServiceImpl implements GroupService {
         final Group group = new Group();
         // validate unique name
         group.setName(name);
-        logger.info("Group '{}' is created.", name);
+        LOGGER.info("Group '{}' is created.", name);
         return this.saveGroup(group);
     }
 
@@ -50,9 +50,9 @@ public class GroupServiceImpl implements GroupService {
     public void deleteGroup(final String name) {
         try {
             groupRepository.deleteById(name);
-            logger.info("Group '{}' is deleted.", name);
+            LOGGER.info("Group '{}' is deleted.", name);
         } catch (final EmptyResultDataAccessException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

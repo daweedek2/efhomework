@@ -8,6 +8,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/** .
+ * think about the abstract or super entity with the similar methods (User, Group, Permission)
+ */
+
 @Entity
 @Table(name = "groups")
 public class Group implements Serializable {
@@ -16,7 +20,7 @@ public class Group implements Serializable {
     private String name;
 
     @ManyToMany
-    private Set<Group> parentGroup = new HashSet<>();
+    private Set<Group> parentGroups = new HashSet<>();
 
     @ManyToMany
     private Set<Permission> grantedPermissions = new HashSet<>();
@@ -36,12 +40,12 @@ public class Group implements Serializable {
         this.name = name;
     }
 
-    public Set<Group> getParentGroup() {
-        return parentGroup;
+    public Set<Group> getParentGroups() {
+        return parentGroups;
     }
 
-    public void setParentGroup(final Set<Group> parentGroup) {
-        this.parentGroup = parentGroup;
+    public void setParentGroups(final Set<Group> parentGroup) {
+        this.parentGroups = parentGroup;
     }
 
     public Set<Permission> getGrantedPermissions() {
@@ -64,7 +68,7 @@ public class Group implements Serializable {
     public String toString() {
         return "Group{"
                 + "name='" + name + '\''
-                + ", parentGroup=" + parentGroup
+                + ", parentGroup=" + parentGroups
                 + ", grantedPermissions=" + grantedPermissions
                 + ", revokedPermissions=" + revokedPermissions
                 + '}';
