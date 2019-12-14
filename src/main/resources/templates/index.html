@@ -5,23 +5,26 @@
     <title>DKO</title>
 </head>
 <body>
-<h4>User administration</h4>
 <div>
-    <h4>Group administration</h4>
-    <form action="#" th:action="@{/createGroup}" th:object="${entityFormDTO}" method="post">
-        Group name:<br>
+    <h4>Register management</h4>
+    <form th:action="@{/createGroup}" th:object="${entityFormDTO}" method="post">
+        Name:<br>
         <input type="text" name="name">
+        <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error.</p>
         <br>
-        <input type="submit" value="Create">
-    </form>
-    <form action="#" th:action="@{/deleteGroup}" th:object="${entityFormDTO}" method="post">
-        Group name:<br>
-        <input type="text" name="name">
+        <input type="submit" value="Create Group" th:formaction="@{/register/createGroup}">
+        <input type="submit" value="Delete Group" th:formaction="@{/register/deleteGroup}">
         <br>
-        <input type="submit" value="Delete">
+        <input type="submit" value="Create User" th:formaction="@{/register/createUser}">
+        <input type="submit" value="Delete User" th:formaction="@{/register/deleteUser}">
+        <br>
+        <input type="submit" value="Create Permission" th:formaction="@{/register/createPermission}">
+        <input type="submit" value="Delete Permission" th:formaction="@{/register/deletePermission}">
     </form>
 </div>
-<h4>Permission administration</h4>
+<div>
+    <h4>Assignment management</h4>
+</div>
 <h4>Validate permissions</h4>
 </body>
 </html>
