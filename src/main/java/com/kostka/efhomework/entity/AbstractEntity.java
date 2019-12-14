@@ -1,27 +1,31 @@
 package com.kostka.efhomework.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.MappedSuperclass;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-public abstract class SuperEntity {
+@MappedSuperclass
+public abstract class AbstractEntity {
 
     @Id
     private String name;
 
+    @Column
     @ManyToMany
     private Set<Group> parentGroups = new HashSet<>();
 
+    @Column
     @ManyToMany
     private Set<Permission> grantedPermissions = new HashSet<>();
 
+    @Column
     @ManyToMany
     private Set<Permission> revokedPermissions = new HashSet<>();
 
-    public SuperEntity() {
+    public AbstractEntity() {
         //empty constructor
     }
 

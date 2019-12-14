@@ -1,5 +1,6 @@
 package com.kostka.efhomework.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -14,6 +15,7 @@ public class Permission implements Serializable {
     @Id
     private String name;
 
+    @Column
     @ManyToMany
     private Set<Permission> requiredPermissions = new HashSet<>();
 

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -37,6 +38,11 @@ public class PermissionServiceImpl implements PermissionService {
             throw new ResourceNotFoundException("Permission with name '" + name + "' does not exist.");
         }
         return permission.get();
+    }
+
+    @Override
+    public Permission savePermission(final @NonNull Permission permission) {
+        return permissionRepository.save(permission);
     }
 
     @Override

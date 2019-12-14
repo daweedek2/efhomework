@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User extends SuperEntity {
+public class User extends AbstractEntity {
 
     @Override
     public String toString() {

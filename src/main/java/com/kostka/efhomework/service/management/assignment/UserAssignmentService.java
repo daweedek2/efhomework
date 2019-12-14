@@ -1,7 +1,7 @@
 package com.kostka.efhomework.service.management.assignment;
 
 /**
- * TODO: think about generic solution for this service
+ * think about generic solution for this service.
  * GroupAssignment + UserAssignment services are quite similar
  */
 

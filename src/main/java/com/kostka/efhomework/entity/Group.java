@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "groups")
-public class Group extends SuperEntity {
+public class Group extends AbstractEntity {
 
     @Override
     public String toString() {
