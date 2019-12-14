@@ -30,8 +30,6 @@ public class UserAssignmentServiceImpl implements UserAssignmentService {
         groups.add(group);
         userService.saveUser(user);
         LOGGER.info("User '{}' assigned to the group '{}'.", userName, groupName);
-        LOGGER.info(user.toString());
-        LOGGER.info(group.toString());
     }
 
     @Override
