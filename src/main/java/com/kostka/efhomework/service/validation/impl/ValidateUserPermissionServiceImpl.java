@@ -32,6 +32,13 @@ public class ValidateUserPermissionServiceImpl implements ValidateUserPermission
         this.revokedPermissionService = revokedPermissionService;
     }
 
+    /**
+     * Method that checks the permission of the user.
+     * If the permission is granted, log message is written.
+     * If the permission is not granted or revoked, NoPermissionException is thrown.
+     * @param permissionName String of the permission name.
+     * @param userName String of the user name.
+     */
     @Override
     public void checkUserPermissions(final String permissionName, final String userName) {
         final Permission permission = permissionService.getPermission(permissionName);

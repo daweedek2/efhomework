@@ -37,7 +37,7 @@ public class GroupServiceImpl implements GroupService {
     public Group getGroup(final String name) {
         final Optional<Group> group = groupRepository.findById(name);
         if (group.isEmpty()) {
-            throw new ResourceNotFoundException("Group with name '" + name + "' does not exist.");
+            throw new ResourceNotFoundException("Group '" + name + "' does not exist.");
         }
         return group.get();
     }
@@ -62,7 +62,7 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.existsById(name);
     }
 
-    private void validateUniqueName(String name) {
+    private void validateUniqueName(final String name) {
         if (isGroupInDb(name)) {
             throw new UniqueNameException("Group with name '" + name + "' already exists.");
         }

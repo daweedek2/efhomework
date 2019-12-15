@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PermissionServiceImplTest {
+public class PermissionServiceTest {
     private static final String TEST_PERMISSION_NAME = "VIEW_INCIDENT";
 
     @Mock

@@ -1,10 +1,11 @@
-package com.kostka.efhomework.service.validation;
+package com.kostka.efhomework.service.validation.validateUserPermissionService;
 
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import com.kostka.efhomework.service.management.register.UserService;
+import com.kostka.efhomework.service.validation.ValidateUserPermissionService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

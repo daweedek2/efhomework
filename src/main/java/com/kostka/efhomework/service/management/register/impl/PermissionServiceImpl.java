@@ -37,7 +37,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Permission getPermission(final String name) {
         final Optional<Permission> permission = permissionRepository.findById(name);
         if (permission.isEmpty()) {
-            throw new ResourceNotFoundException("Permission with name '" + name + "' does not exist.");
+            throw new ResourceNotFoundException("Permission '" + name + "' does not exist.");
         }
         return permission.get();
     }
@@ -62,7 +62,7 @@ public class PermissionServiceImpl implements PermissionService {
         return permissionRepository.existsById(name);
     }
 
-    private void validateUniqueName(String name) {
+    private void validateUniqueName(final String name) {
         if (isPermissionInDb(name)) {
             throw new UniqueNameException("Permission with name '" + name + "' already exists.");
         }

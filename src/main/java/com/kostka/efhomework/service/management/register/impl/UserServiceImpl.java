@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public User getUser(final String name) {
         final Optional<User> user = userRepository.findById(name);
         if (user.isEmpty()) {
-            throw new ResourceNotFoundException("User with name '" + name + "' does not exist.");
+            throw new ResourceNotFoundException("User '" + name + "' does not exist.");
         }
         return user.get();
     }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsById(name);
     }
 
-    private void validateUniqueName(String name) {
+    private void validateUniqueName(final String name) {
         if (isUserInDb(name)) {
             throw new UniqueNameException("User with name '" + name + "' already exists.");
         }

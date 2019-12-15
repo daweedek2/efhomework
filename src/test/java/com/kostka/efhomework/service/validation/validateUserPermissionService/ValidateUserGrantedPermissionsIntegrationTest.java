@@ -1,4 +1,4 @@
-package com.kostka.efhomework.service.validation;
+package com.kostka.efhomework.service.validation.validateUserPermissionService;
 
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.entity.Permission;
@@ -12,6 +12,7 @@ import com.kostka.efhomework.service.management.permission.ManageUserPermissionS
 import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import com.kostka.efhomework.service.management.register.UserService;
+import com.kostka.efhomework.service.validation.ValidateUserPermissionService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

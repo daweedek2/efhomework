@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GroupServiceImplTest {
+public class GroupServiceTest {
     private static final String TEST_GROUP_NAME = "ALPHA";
 
     @Mock

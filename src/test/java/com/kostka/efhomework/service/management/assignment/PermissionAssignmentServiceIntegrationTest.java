@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
 @Transactional
-public class PermissionAssignmentIntegrationTest {
+public class PermissionAssignmentServiceIntegrationTest {
     private static final String TEST_NAME_1 = "ALPHA";
     private static final String TEST_NAME_2 = "BETA";
     private static final String TEST_NAME_3 = "GAMA";
