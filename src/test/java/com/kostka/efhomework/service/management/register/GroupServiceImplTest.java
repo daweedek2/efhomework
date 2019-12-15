@@ -1,7 +1,8 @@
-package com.kostka.efhomework.service.register;
+package com.kostka.efhomework.service.management.register;
 
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
+import com.kostka.efhomework.exception.UniqueNameException;
 import com.kostka.efhomework.repository.GroupRepository;
 import com.kostka.efhomework.service.management.register.impl.GroupServiceImpl;
 import org.junit.Assert;
@@ -15,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -78,4 +80,14 @@ public class GroupServiceImplTest {
         Mockito.verify(groupRepository).existsById(eq(TEST_GROUP_NAME));
     }
 
+    @Test
+    public void createGroupAlreadyExistingNameTest() {
+        when(groupRepository.existsById(TEST_GROUP_NAME)).thenReturn(true);
+
+        Exception e = assertThrows(UniqueNameException.class, () -> {
+            groupService.createGroup(TEST_GROUP_NAME);
+        });
+
+        assertTrue(e.getMessage().contains("Group with name '" + TEST_GROUP_NAME + "' already exists."));
+    }
 }

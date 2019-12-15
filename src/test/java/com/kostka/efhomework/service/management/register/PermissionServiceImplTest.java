@@ -1,11 +1,13 @@
-package com.kostka.efhomework.service.register;
+package com.kostka.efhomework.service.management.register;
 
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
+import com.kostka.efhomework.exception.UniqueNameException;
 import com.kostka.efhomework.repository.PermissionRepository;
 import com.kostka.efhomework.service.management.register.impl.PermissionServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PermissionServiceImplTest {
@@ -70,5 +73,18 @@ public class PermissionServiceImplTest {
         permissionService.deletePermission(TEST_PERMISSION_NAME);
 
         Mockito.verify(permissionRepository).deleteById(eq(TEST_PERMISSION_NAME));
+    }
+
+
+    @Test
+    public void createPermissionAlreadyExistingNameTest() {
+        when(permissionRepository.existsById(TEST_PERMISSION_NAME)).thenReturn(true);
+
+        Exception e = assertThrows(UniqueNameException.class, () -> {
+            permissionService.createPermission(TEST_PERMISSION_NAME);
+        });
+
+        Assertions.assertTrue(e.getMessage()
+                .contains("Permission with name '" + TEST_PERMISSION_NAME + "' already exists."));
     }
 }

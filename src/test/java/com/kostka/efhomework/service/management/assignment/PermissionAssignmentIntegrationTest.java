@@ -1,9 +1,8 @@
-package com.kostka.efhomework.service.assignment;
+package com.kostka.efhomework.service.management.assignment;
 
 import com.kostka.efhomework.EfHomeworkApplication;
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
-import com.kostka.efhomework.service.management.assignment.PermissionAssignmentService;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import org.junit.Assert;
 import org.junit.Test;

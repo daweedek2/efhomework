@@ -8,6 +8,7 @@ import com.kostka.efhomework.service.management.register.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -47,8 +48,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(final String name) {
-        userRepository.deleteById(name);
-        LOGGER.info("User '{}' is deleted.", name);
+        try {
+            userRepository.deleteById(name);
+            LOGGER.info("User '{}' is deleted.", name);
+        } catch (final EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Cannot delete non-existing user '" + name + "'.");
+        }
     }
 
     @Override

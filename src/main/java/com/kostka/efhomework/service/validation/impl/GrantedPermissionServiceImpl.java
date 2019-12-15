@@ -12,6 +12,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 public class GrantedPermissionServiceImpl implements GrantedPermissionService {
 
+    /**
+     *
+     * @param permission
+     * @param user
+     * @return
+     */
     public boolean isPermissionWithRequiredGranted(final Permission permission, final User user) {
         final AtomicBoolean isRequiredPermissionGranted = isRequiredPermissionGranted(permission, user);
         if (isRequiredPermissionGranted.get()) {

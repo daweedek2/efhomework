@@ -1,7 +1,8 @@
-package com.kostka.efhomework.service.register;
+package com.kostka.efhomework.service.management.register;
 
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
+import com.kostka.efhomework.exception.UniqueNameException;
 import com.kostka.efhomework.repository.UserRepository;
 import com.kostka.efhomework.service.management.register.impl.UserServiceImpl;
 import org.junit.Assert;
@@ -15,9 +16,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
@@ -76,5 +79,16 @@ public class UserServiceImplTest {
         userService.isUserInDb(TEST_USER_NAME);
 
         verify(userRepository).existsById(eq(TEST_USER_NAME));
+    }
+
+    @Test
+    public void createGroupAlreadyExistingNameTest() {
+        when(userRepository.existsById(TEST_USER_NAME)).thenReturn(true);
+
+        Exception e = assertThrows(UniqueNameException.class, () -> {
+            userService.createUser(TEST_USER_NAME);
+        });
+
+        assertTrue(e.getMessage().contains("User with name '" + TEST_USER_NAME + "' already exists."));
     }
 }

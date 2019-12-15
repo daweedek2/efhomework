@@ -7,24 +7,93 @@
 <body>
 <div>
     <h4>Register management</h4>
-    <form th:action="@{/createGroup}" th:object="${entityFormDTO}" method="post">
+    <form th:action="@{/register}" th:object="${registerFormDTO}" method="post">
         Name:<br>
         <input type="text" name="name">
-        <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error.</p>
-        <br>
-        <input type="submit" value="Create Group" th:formaction="@{/register/createGroup}">
-        <input type="submit" value="Delete Group" th:formaction="@{/register/deleteGroup}">
+        <p class="error" th:if="${#fields.hasErrors('name')}"
+           th:errors="*{name}" style="color:red">Field error.</p>
         <br>
         <input type="submit" value="Create User" th:formaction="@{/register/createUser}">
         <input type="submit" value="Delete User" th:formaction="@{/register/deleteUser}">
         <br>
+        <input type="submit" value="Create Group" th:formaction="@{/register/createGroup}">
+        <input type="submit" value="Delete Group" th:formaction="@{/register/deleteGroup}">
+        <br>
         <input type="submit" value="Create Permission" th:formaction="@{/register/createPermission}">
         <input type="submit" value="Delete Permission" th:formaction="@{/register/deletePermission}">
+        <div th:if="${registerResult} != null">
+            <p th:utext="${registerResult}" style="color:red">result</p>
+        </div>
     </form>
 </div>
 <div>
     <h4>Assignment management</h4>
+    <form th:action="@{/assignment}" th:object="${assignmentFormDTO}" method="post">
+        Name:<br>
+        <input type="text" name="name">
+        <p class="error" th:if="${#fields.hasErrors('name')}"
+           th:errors="*{name}" style="color:red">Field error.</p>
+        <br>
+        Target Name:<br>
+        <input type="text" name="targetName">
+        <p class="error" th:if="${#fields.hasErrors('targetName')}"
+           th:errors="*{targetName}" style="color:red">Field error.</p>
+        <br>
+        <input type="submit" value="Assign User to Group" th:formaction="@{/assignment/assignUserToGroup}">
+        <input type="submit" value="De-assign User from Group" th:formaction="@{/assignment/deAssignUserFromGroup}">
+        <br>
+        <input type="submit" value="Assign Group to Group" th:formaction="@{/assignment/assignGroupToGroup}">
+        <input type="submit" value="De-assign Group from Group" th:formaction="@{/assignment/deAssignGroupFromGroup}">
+        <br>
+        <input type="submit" value="Assign Required Permission" th:formaction="@{/assignment/assignRequiredPermission}">
+        <input type="submit" value="De-assign Required Permission" th:formaction="@{/assignment/deAssignRequiredPermission}">
+        <br>
+        <div th:if="${assignmentResult} != null">
+            <p th:utext="${assignmentResult}" style="color:red">result</p>
+        </div>
+    </form>
 </div>
-<h4>Validate permissions</h4>
+<div>
+    <h4>Permission management (grant / revoke for user / group)</h4>
+    <form th:action="@{/permission}" th:object="${permissionFormDTO}" method="post">
+        Permission Name:<br>
+        <input type="text" name="name">
+        <p class="error" th:if="${#fields.hasErrors('name')}"
+           th:errors="*{name}" style="color:red">Field error.</p>
+        <br>
+        Target Name:<br>
+        <input type="text" name="targetName">
+        <p class="error" th:if="${#fields.hasErrors('targetName')}"
+           th:errors="*{targetName}" style="color:red">Field error.</p>
+        <br>
+        <input type="submit" value="Grant for User" th:formaction="@{/permission/grantForUser}">
+        <input type="submit" value="Revoke for User" th:formaction="@{/permission/revokeForUser}">
+        <br>
+        <input type="submit" value="Grant for Group" th:formaction="@{/permission/grantForGroup}">
+        <input type="submit" value="Revoke for Group" th:formaction="@{/permission/revokeForGroup}">
+        <div th:if="${permissionResult} != null">
+            <p th:utext="${permissionResult}" style="color:red">result</p>
+        </div>
+    </form>
+</div>
+<div>
+    <h4>Validate permission</h4>
+    <form th:action="@{/validation}" th:object="${validationFormDTO}" method="post">
+        User Name:<br>
+        <input type="text" name="name">
+        <p class="error" th:if="${#fields.hasErrors('name')}"
+           th:errors="*{name}" style="color:red">Field error.</p>
+        <br>
+        Permission Name:<br>
+        <input type="text" name="permissionName">
+        <p class="error" th:if="${#fields.hasErrors('permissionName')}"
+           th:errors="*{permissionName}" style="color:red">Field error.</p>
+        <br>
+        <input type="submit" value="Validate" th:formaction="@{/validation/validateUserPermission}">
+        <div th:if="${validationResult} != null">
+            <p th:utext="${validationResult}" style="color:red">result</p>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -1,10 +1,9 @@
-package com.kostka.efhomework.service.assignment;
+package com.kostka.efhomework.service.management.assignment;
 
 import com.kostka.efhomework.EfHomeworkApplication;
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
-import com.kostka.efhomework.service.management.assignment.UserAssignmentService;
 import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.UserService;
 import org.junit.Assert;

@@ -8,6 +8,7 @@ import com.kostka.efhomework.service.management.register.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +49,12 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void deletePermission(final String name) {
-        permissionRepository.deleteById(name);
-        LOGGER.info("Permission '{}' is deleted.", name);
+        try {
+            permissionRepository.deleteById(name);
+            LOGGER.info("Permission '{}' is deleted.", name);
+        } catch (final EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Cannot delete non-existing permission '" + name + "'.");
+        }
     }
 
     @Override

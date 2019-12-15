@@ -1,10 +1,9 @@
-package com.kostka.efhomework.service.permission;
+package com.kostka.efhomework.service.management.permission;
 
 import com.kostka.efhomework.EfHomeworkApplication;
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
-import com.kostka.efhomework.service.management.permission.ManageUserPermissionService;
 import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import com.kostka.efhomework.service.management.register.UserService;
