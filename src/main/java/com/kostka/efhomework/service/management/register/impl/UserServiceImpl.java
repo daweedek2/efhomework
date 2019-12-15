@@ -7,7 +7,6 @@ import com.kostka.efhomework.service.management.register.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,6 +26,7 @@ public class UserServiceImpl implements UserService {
         final User user = new User();
         // validate unique name
         user.setName(name);
+        LOGGER.info("User '{}' is created.", user.getName());
         return this.saveUser(user);
     }
 
@@ -41,18 +41,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(final User user) {
-        LOGGER.info("User '{}' is created.", user.getName());
         return userRepository.save(user);
     }
 
     @Override
     public void deleteUser(final String name) {
-        try {
-            userRepository.deleteById(name);
-            LOGGER.info("User '{}' is deleted.", name);
-        } catch (final EmptyResultDataAccessException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        userRepository.deleteById(name);
+        LOGGER.info("User '{}' is deleted.", name);
     }
 
     @Override

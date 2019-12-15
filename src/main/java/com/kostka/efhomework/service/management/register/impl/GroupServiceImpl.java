@@ -7,7 +7,6 @@ import com.kostka.efhomework.service.management.register.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -48,12 +47,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void deleteGroup(final String name) {
-        try {
-            groupRepository.deleteById(name);
-            LOGGER.info("Group '{}' is deleted.", name);
-        } catch (final EmptyResultDataAccessException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        groupRepository.deleteById(name);
+        LOGGER.info("Group '{}' is deleted.", name);
     }
 
     @Override
