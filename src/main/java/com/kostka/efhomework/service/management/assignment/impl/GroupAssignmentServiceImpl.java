@@ -1,6 +1,7 @@
 package com.kostka.efhomework.service.management.assignment.impl;
 
 import com.kostka.efhomework.entity.Group;
+import com.kostka.efhomework.exception.ParentGroupRestrictionException;
 import com.kostka.efhomework.service.management.assignment.GroupAssignmentService;
 import com.kostka.efhomework.service.management.register.GroupService;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class GroupAssignmentServiceImpl implements GroupAssignmentService {
 
     @Override
     public void assignParentGroupToGroup(final String parentGroupName, final String groupName) {
+        validatePresenceOfParentGroup(groupName);
         final Group parentGroup = groupService.getGroup(parentGroupName);
         final Group group = groupService.getGroup(groupName);
         final Set<Group> groupSet = group.getParentGroups();
@@ -37,5 +39,12 @@ public class GroupAssignmentServiceImpl implements GroupAssignmentService {
         groupSet.remove(groupService.getGroup(parentGroupName));
         groupService.saveGroup(group);
         LOGGER.info("Parent group '{}' de-assigned from the group '{}'.", parentGroupName, groupName);
+    }
+
+    private void validatePresenceOfParentGroup(final String groupName) {
+        final Group group = groupService.getGroup(groupName);
+        if (!group.getParentGroups().isEmpty()) {
+            throw new ParentGroupRestrictionException("Group '" + groupName + "' has already one parent group.");
+        }
     }
 }

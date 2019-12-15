@@ -4,6 +4,7 @@ import com.kostka.efhomework.dto.AssignmentFormDTO;
 import com.kostka.efhomework.dto.PermissionFormDTO;
 import com.kostka.efhomework.dto.RegisterFormDTO;
 import com.kostka.efhomework.dto.ValidationFormDTO;
+import com.kostka.efhomework.exception.ParentGroupRestrictionException;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.service.management.assignment.GroupAssignmentService;
 import com.kostka.efhomework.service.management.assignment.PermissionAssignmentService;
@@ -144,7 +145,7 @@ public class AssignmentController extends AbstractController{
         return INDEX;
     }
 
-    @ExceptionHandler(value = {ResourceNotFoundException.class})
+    @ExceptionHandler(value = {ResourceNotFoundException.class, ParentGroupRestrictionException.class})
     public String handleException(final Exception e, final Model model) {
         addModelAttributes(model);
         model.addAttribute(TEMPLATE_ATTR_ASSIGNMENT_FORM, new AssignmentFormDTO());

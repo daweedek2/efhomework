@@ -64,7 +64,7 @@ public class PermissionServiceTest {
             permissionService.getPermission(TEST_PERMISSION_NAME);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_NAME + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_NAME + "' does not exist."));
         Mockito.verify(permissionRepository).findById(eq(TEST_PERMISSION_NAME));
     }
 

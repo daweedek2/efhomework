@@ -69,7 +69,7 @@ public class UserAssignmentServiceIntegrationTest {
             userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class UserAssignmentServiceIntegrationTest {
             userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_2 + "' does not exist."));
+        assertTrue(e.getMessage().contains("User '" + TEST_NAME_2 + "' does not exist."));
 
     }
 
@@ -117,7 +117,7 @@ public class UserAssignmentServiceIntegrationTest {
             userAssignmentService.deAssignUserFromGroup(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class UserAssignmentServiceIntegrationTest {
             userAssignmentService.deAssignUserFromGroup(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_2 + "' does not exist."));
+        assertTrue(e.getMessage().contains("User '" + TEST_NAME_2 + "' does not exist."));
     }
 
 }

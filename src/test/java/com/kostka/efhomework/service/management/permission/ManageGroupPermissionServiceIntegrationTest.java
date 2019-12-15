@@ -60,7 +60,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
             manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
             manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' does not exist."));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
             manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
             manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' does not exist."));
     }
 
     @Test

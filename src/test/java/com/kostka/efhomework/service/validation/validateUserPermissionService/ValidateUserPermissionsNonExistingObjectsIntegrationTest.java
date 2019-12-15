@@ -39,7 +39,7 @@ public class ValidateUserPermissionsNonExistingObjectsIntegrationTest {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
-        Assert.assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_1 + "' does not exist."));
+        Assert.assertTrue(e.getMessage().contains("User '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -50,6 +50,6 @@ public class ValidateUserPermissionsNonExistingObjectsIntegrationTest {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
-        Assert.assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
+        Assert.assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' does not exist."));
     }
 }

@@ -59,7 +59,7 @@ public class ManageUserPermissionServiceIntegrationTest {
                 manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
             });
 
-            assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
+            assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' does not exist."));
         }
 
         @Test
@@ -70,7 +70,7 @@ public class ManageUserPermissionServiceIntegrationTest {
                 manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
             });
 
-            assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_1 + "' does not exist."));
+            assertTrue(e.getMessage().contains("User '" + TEST_NAME_1 + "' does not exist."));
         }
 
         @Test
@@ -109,7 +109,7 @@ public class ManageUserPermissionServiceIntegrationTest {
                 manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
             });
 
-            assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_1 + "' does not exist."));
+            assertTrue(e.getMessage().contains("User '" + TEST_NAME_1 + "' does not exist."));
         }
 
         @Test
@@ -120,7 +120,7 @@ public class ManageUserPermissionServiceIntegrationTest {
                 manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
             });
 
-            assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
+            assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' does not exist."));
         }
 
         @Test

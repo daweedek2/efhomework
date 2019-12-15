@@ -2,6 +2,7 @@ package com.kostka.efhomework.service.management.assignment;
 
 import com.kostka.efhomework.EfHomeworkApplication;
 import com.kostka.efhomework.entity.Group;
+import com.kostka.efhomework.exception.ParentGroupRestrictionException;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
 import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.UserService;
@@ -62,7 +63,7 @@ public class GroupAssignmentServiceIntegrationTest {
             groupAssignmentService.deAssignParentGroupFromGroup(TEST_NAME_2, TEST_NAME_1);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -73,7 +74,7 @@ public class GroupAssignmentServiceIntegrationTest {
             groupAssignmentService.deAssignParentGroupFromGroup(TEST_NAME_2,TEST_NAME_1);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_2 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test
@@ -84,7 +85,7 @@ public class GroupAssignmentServiceIntegrationTest {
             groupAssignmentService.assignParentGroupToGroup(TEST_NAME_1, TEST_NAME_2);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -95,7 +96,21 @@ public class GroupAssignmentServiceIntegrationTest {
             groupAssignmentService.assignParentGroupToGroup(TEST_NAME_1, TEST_NAME_2);
         });
 
-        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_2 + "' does not exist."));
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_2 + "' does not exist."));
+    }
+
+    @Test
+    public void assignParentGroupWhenAlreadyPresentParentGroup() {
+        Group group1 = groupService.createGroup(TEST_NAME_1);
+        Group group2 = groupService.createGroup(TEST_NAME_2);
+        Group group3 = groupService.createGroup(TEST_NAME_3);
+        groupAssignmentService.assignParentGroupToGroup(TEST_NAME_2, TEST_NAME_1);
+
+        Exception e = assertThrows(ParentGroupRestrictionException.class, () -> {
+            groupAssignmentService.assignParentGroupToGroup(TEST_NAME_3, TEST_NAME_1);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' has already one parent group."));
     }
 
 }

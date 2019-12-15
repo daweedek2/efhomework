@@ -36,7 +36,7 @@ public class PermissionAssignmentServiceIntegrationTest {
             permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_1 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class PermissionAssignmentServiceIntegrationTest {
             permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_1, TEST_NAME_2);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class PermissionAssignmentServiceIntegrationTest {
             permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class PermissionAssignmentServiceIntegrationTest {
             permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_1 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_NAME_1 + "' does not exist."));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class PermissionAssignmentServiceIntegrationTest {
             permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_1, TEST_NAME_2);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class PermissionAssignmentServiceIntegrationTest {
             permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
         });
 
-        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
+        assertTrue(e.getMessage().contains("Permission '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test
