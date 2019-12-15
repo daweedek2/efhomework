@@ -67,4 +67,12 @@ public class GroupServiceImplTest {
 
         Mockito.verify(groupRepository).deleteById(eq(TEST_GROUP_NAME));
     }
+
+    @Test
+    public void isGroupInDbTest() {
+        groupService.isGroupInDb(TEST_GROUP_NAME);
+
+        Mockito.verify(groupRepository).existsById(eq(TEST_GROUP_NAME));
+    }
+
 }

@@ -64,6 +64,14 @@ public class UserServiceImplTest {
     @Test
     public void deleteUserTest() {
         userService.deleteUser(TEST_USER_NAME);
+
         verify(userRepository).deleteById(eq(TEST_USER_NAME));
+    }
+
+    @Test
+    public void isUserInDb() {
+        userService.isUserInDb(TEST_USER_NAME);
+
+        verify(userRepository).existsById(eq(TEST_USER_NAME));
     }
 }
