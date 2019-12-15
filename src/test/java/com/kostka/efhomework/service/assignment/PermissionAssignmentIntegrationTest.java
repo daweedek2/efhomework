@@ -14,6 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
 @Transactional
@@ -28,21 +31,35 @@ public class PermissionAssignmentIntegrationTest {
     @Autowired
     PermissionService permissionService;
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignNotExistingPermissionToNotExistingPermissionIntegrationTest() {
-        permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignExistingPermissionToNotExistingPermissionIntegrationTest() {
         Permission permission = permissionService.createPermission(TEST_NAME_1);
-        permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
+
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_1, TEST_NAME_2);
+        });
+
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignNotExistingPermissionToExistingPermissionIntegrationTest() {
         Permission permission = permissionService.createPermission(TEST_NAME_1);
-        permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
+
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionAssignmentService.assignRequiredPermissionToPermission(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test
@@ -70,21 +87,33 @@ public class PermissionAssignmentIntegrationTest {
         Assert.assertTrue(permission.getRequiredPermissions().contains(requiredPermission));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignNotExistingPermissionToNotExistingPermissionIntegrationTest() {
-        permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignExistingPermissionToNotExistingPermissionIntegrationTest() {
         Permission permission = permissionService.createPermission(TEST_NAME_1);
-        permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_1, TEST_NAME_2);
+        });
+
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignNotExistingPermissionToExistingPermissionIntegrationTest() {
         Permission permission = permissionService.createPermission(TEST_NAME_1);
-        permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionAssignmentService.deAssignRequiredPermissionFromPermission(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
     @Test

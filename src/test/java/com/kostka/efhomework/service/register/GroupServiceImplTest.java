@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -52,11 +53,13 @@ public class GroupServiceImplTest {
         Mockito.verify(groupRepository).findById(eq(TEST_GROUP_NAME));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void getGroupFailedTest() {
         when(groupRepository.findById(TEST_GROUP_NAME)).thenReturn(Optional.empty());
 
-        groupService.getGroup(TEST_GROUP_NAME);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            groupService.getGroup(TEST_GROUP_NAME);
+        });
 
         Mockito.verify(groupRepository).findById(eq(TEST_GROUP_NAME));
     }

@@ -8,12 +8,15 @@ import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.UserService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
@@ -54,32 +57,46 @@ public class GroupAssignmentServiceIntegrationTest {
         Assert.assertEquals(0, groupService.getGroup(TEST_NAME_2).getParentGroups().size());
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignParentGroupFromNotExistingGroupIntegrationTest() {
-        groupAssignmentService.deAssignParentGroupFromGroup(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            groupAssignmentService.deAssignParentGroupFromGroup(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignNotPresentParentGroupFromExistingGroupIntegrationTest() {
         Group group1 = groupService.createGroup(TEST_NAME_1);
 
-        groupAssignmentService.deAssignParentGroupFromGroup(TEST_NAME_2,TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            groupAssignmentService.deAssignParentGroupFromGroup(TEST_NAME_2,TEST_NAME_1);
+        });
 
-        Assert.assertEquals(0, groupService.getGroup(TEST_NAME_2).getParentGroups().size());
+        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignNotExistingParentGroupToExistingGroupIntegrationTest() {
         Group group2 = groupService.createGroup(TEST_NAME_2);
 
-        groupAssignmentService.assignParentGroupToGroup(TEST_NAME_1, TEST_NAME_2);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            groupAssignmentService.assignParentGroupToGroup(TEST_NAME_1, TEST_NAME_2);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignExistingParentGroupToNotExistingGroupIntegrationTest() {
         Group group1 = groupService.createGroup(TEST_NAME_1);
 
-        groupAssignmentService.assignParentGroupToGroup(TEST_NAME_1, TEST_NAME_2);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            groupAssignmentService.assignParentGroupToGroup(TEST_NAME_1, TEST_NAME_2);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
 }

@@ -16,6 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
 @Transactional
@@ -60,18 +63,26 @@ public class UserAssignmentServiceIntegrationTest {
         Assert.assertTrue(userService.getUser(TEST_NAME_3).getParentGroups().contains(group2));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignNotExistingGroupToExistingUserIntegrationTest() {
         User user1 = userService.createUser(TEST_NAME_2);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
+        });
 
-        userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
+        assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void assignExistingGroupToNotExistingUserIntegrationTest() {
         Group group1 = groupService.createGroup(TEST_NAME_1);
 
-        userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_2 + "' does not exist."));
+
     }
 
     @Test
@@ -99,19 +110,26 @@ public class UserAssignmentServiceIntegrationTest {
         Assert.assertEquals(countBefore, userService.getUser(TEST_NAME_2).getParentGroups().size());
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignNotExistingGroupFromExistingUserIntegrationTest() {
         User user1 = userService.createUser(TEST_NAME_2);
 
-        userAssignmentService.deAssignUserFromGroup(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            userAssignmentService.deAssignUserFromGroup(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deAssignExistingGroupFromNotExistingUserIntegrationTest() {
         Group group1 = groupService.createGroup(TEST_NAME_1);
-        userAssignmentService.assignUserToGroup(TEST_NAME_2, TEST_NAME_1);
 
-        userAssignmentService.deAssignUserFromGroup(TEST_NAME_2, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            userAssignmentService.deAssignUserFromGroup(TEST_NAME_2, TEST_NAME_1);
+        });
+
+        assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_2 + "' does not exist."));
     }
 
 }

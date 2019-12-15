@@ -19,6 +19,9 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
 @Transactional
@@ -39,7 +42,7 @@ public class CheckUserRevokedPermissionsIntegrationTest {
     @Autowired
     private RevokedPermissionService revokedPermissionService;
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void checkRevokedPermissionIsPresentForUserWithNoGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -50,10 +53,14 @@ public class CheckUserRevokedPermissionsIntegrationTest {
         User user1 = userService.createUser(TEST_NAME_1);
         user1.setRevokedPermissions(permissionSet);
 
-        revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void checkRevokedPermissionIsPresentInGroupForUserWithOneGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -69,10 +76,14 @@ public class CheckUserRevokedPermissionsIntegrationTest {
         User user1 = userService.createUser(TEST_NAME_1);
         user1.setParentGroups(groupSet);
 
-        revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void checkRevokedPermissionIsPresentInGroupForUserWithTwoGroupsIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -92,10 +103,14 @@ public class CheckUserRevokedPermissionsIntegrationTest {
         User user1 = userService.createUser(TEST_NAME_1);
         user1.setParentGroups(groupSet);
 
-        revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void checkRevokedPermissionIsPresentInParentGroupForUserWithOneGroupWithParentGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -115,6 +130,10 @@ public class CheckUserRevokedPermissionsIntegrationTest {
         User user1 = userService.createUser(TEST_NAME_1);
         user1.setParentGroups(groupSet);
 
-        revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForUserWithGroup(permission1, user1);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 }

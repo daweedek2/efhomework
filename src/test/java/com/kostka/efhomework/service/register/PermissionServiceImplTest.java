@@ -14,6 +14,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -51,12 +53,15 @@ public class PermissionServiceImplTest {
         Mockito.verify(permissionRepository).findById(eq(TEST_PERMISSION_NAME));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void getPermissionFailedTest() {
         Mockito.when(permissionRepository.findById(TEST_PERMISSION_NAME)).thenReturn(Optional.empty());
 
-        permissionService.getPermission(TEST_PERMISSION_NAME);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            permissionService.getPermission(TEST_PERMISSION_NAME);
+        });
 
+        assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_NAME + "' does not exist."));
         Mockito.verify(permissionRepository).findById(eq(TEST_PERMISSION_NAME));
     }
 

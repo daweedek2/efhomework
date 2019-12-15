@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -52,11 +53,13 @@ public class UserServiceImplTest {
         verify(userRepository).findById(eq(TEST_USER_NAME));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void getUserFailedTest() {
         Mockito.when(userRepository.findById(TEST_USER_NAME)).thenReturn(Optional.empty());
 
-        userService.getUser(TEST_USER_NAME);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            userService.getUser(TEST_USER_NAME);
+        });
 
         verify(userRepository).findById(eq(TEST_USER_NAME));
     }

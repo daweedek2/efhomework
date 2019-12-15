@@ -19,6 +19,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
@@ -51,18 +52,26 @@ public class ManageUserPermissionServiceIntegrationTest {
             assertTrue(permissions.contains(permission));
         }
 
-        @Test(expected = ResourceNotFoundException.class)
+        @Test
         public void grantNotExistingPermissionForUserIntegrationTest() {
             User user = userService.createUser(TEST_NAME_1);
 
-            manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+                manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            });
+
+            assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
         }
 
-        @Test(expected = ResourceNotFoundException.class)
+        @Test
         public void grantForNotExistingUserIntegrationTest() {
             Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
 
-            manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+                manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            });
+
+            assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_1 + "' does not exist."));
         }
 
         @Test
@@ -93,18 +102,26 @@ public class ManageUserPermissionServiceIntegrationTest {
             assertTrue(permissions.contains(permission));
         }
 
-        @Test(expected = ResourceNotFoundException.class)
+        @Test
         public void revokeForNotExistingUserIntegrationTest() {
             Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
 
-            manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+                manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            });
+
+            assertTrue(e.getMessage().contains("User with name '" + TEST_NAME_1 + "' does not exist."));
         }
 
-        @Test(expected = ResourceNotFoundException.class)
+        @Test
         public void revokeNotExistingPermissionForUserIntegrationTest() {
             User user = userService.createUser(TEST_NAME_1);
 
-            manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+                manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            });
+
+            assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
         }
 
         @Test

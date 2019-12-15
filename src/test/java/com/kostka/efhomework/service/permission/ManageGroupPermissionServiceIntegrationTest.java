@@ -9,6 +9,7 @@ import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import com.kostka.efhomework.service.management.register.UserService;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
@@ -51,18 +53,26 @@ public class ManageGroupPermissionServiceIntegrationTest {
         assertTrue(permissions.contains(permission));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void grantForNotExistingGroupIntegrationTest() {
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
 
-        manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void grantNotExistingPermissionForGroupIntegrationTest() {
         Group group = groupService.createGroup(TEST_NAME_1);
 
-        manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
     }
 
     @Test
@@ -93,18 +103,26 @@ public class ManageGroupPermissionServiceIntegrationTest {
         assertTrue(permissions.contains(permission));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void revokeForNotExistingGroupIntegrationTest() {
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
 
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Group with name '" + TEST_NAME_1 + "' does not exist."));
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void revokeNotExistingPermissionForGroupIntegrationTest() {
         Group group = groupService.createGroup(TEST_NAME_1);
 
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        Exception e = assertThrows(ResourceNotFoundException.class, () -> {
+            manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        });
+
+        Assertions.assertTrue(e.getMessage().contains("Permission with name '" + TEST_PERMISSION_1 + "' does not exist."));
     }
 
     @Test

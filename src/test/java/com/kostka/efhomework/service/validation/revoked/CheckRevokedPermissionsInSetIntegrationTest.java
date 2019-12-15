@@ -3,9 +3,7 @@ package com.kostka.efhomework.service.validation.revoked;
 import com.kostka.efhomework.EfHomeworkApplication;
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.NoPermissionException;
-import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.PermissionService;
-import com.kostka.efhomework.service.management.register.UserService;
 import com.kostka.efhomework.service.validation.RevokedPermissionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +15,10 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
 @Transactional
@@ -26,13 +28,9 @@ public class CheckRevokedPermissionsInSetIntegrationTest {
     @Autowired
     private PermissionService permissionService;
     @Autowired
-    private GroupService groupService;
-    @Autowired
-    private UserService userService;
-    @Autowired
     private RevokedPermissionService revokedPermissionService;
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void verifyRevokedPermissionInSetIsPresentIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -40,25 +38,33 @@ public class CheckRevokedPermissionsInSetIntegrationTest {
         permissionSet.add(permission1);
         permissionSet.add(permission2);
 
-        revokedPermissionService.checkPermissionRevokedInSet(permission1, permissionSet);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedInSet(permission1, permissionSet);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(/* no exception expected */)
+    @Test
     public void verifyRevokedPermissionInEmptySetIsNotPresentIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
         Set<Permission> permissionSet = new HashSet<>();
 
-        revokedPermissionService.checkPermissionRevokedInSet(permission1, permissionSet);
+        assertDoesNotThrow(() -> {
+            revokedPermissionService.checkPermissionRevokedInSet(permission1, permissionSet);
+        });
     }
 
-    @Test(/* no exception expected */)
+    @Test
     public void verifyRevokedPermissionInSetIsNotPresentIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
         Set<Permission> permissionSet = new HashSet<>();
         permissionSet.add(permission2);
 
-        revokedPermissionService.checkPermissionRevokedInSet(permission1, permissionSet);
+        assertDoesNotThrow(() -> {
+            revokedPermissionService.checkPermissionRevokedInSet(permission1, permissionSet);
+        });
     }
 }

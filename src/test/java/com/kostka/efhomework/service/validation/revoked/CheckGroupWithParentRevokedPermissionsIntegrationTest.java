@@ -18,6 +18,9 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EfHomeworkApplication.class)
 @Transactional
@@ -40,7 +43,7 @@ public class CheckGroupWithParentRevokedPermissionsIntegrationTest {
 
     // Testing presence of Revoked permission for Group with Parent Group
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void verifyRevokedPermissionIsPresentInGroupWithParentIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -55,10 +58,14 @@ public class CheckGroupWithParentRevokedPermissionsIntegrationTest {
         group.setRevokedPermissions(permissionSet);
         group.setParentGroups(parentGroupSet);
 
-        revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void verifyRevokedPermissionIsPresentInParentGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -73,12 +80,16 @@ public class CheckGroupWithParentRevokedPermissionsIntegrationTest {
         parentGroup.setRevokedPermissions(permissionSet);
         group.setParentGroups(parentGroupSet);
 
-        revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
     // Testing presence of Revoked permission for Group with Parent Group with grand-parent group
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void verifyRevokedPermissionIsPresentInGrandParentGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -97,10 +108,14 @@ public class CheckGroupWithParentRevokedPermissionsIntegrationTest {
         group.setParentGroups(parentGroupSet);
         parentGroup.setParentGroups(grandParentGroupSet);
 
-        revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void verifyRevokedPermissionIsPresentInParentGroupWithGrandParentGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -120,10 +135,14 @@ public class CheckGroupWithParentRevokedPermissionsIntegrationTest {
         group.setParentGroups(parentGroupSet);
         parentGroup.setParentGroups(granParentGroupSet);
 
-        revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 
-    @Test(expected = NoPermissionException.class)
+    @Test
     public void verifyRevokedPermissionIsPresentInParentGroupAndChildGroupIntegrationTest() {
         Permission permission1 = permissionService.createPermission(TEST_PERMISSION_1);
         Permission permission2 = permissionService.createPermission(TEST_PERMISSION_2);
@@ -144,6 +163,10 @@ public class CheckGroupWithParentRevokedPermissionsIntegrationTest {
         group.setParentGroups(parentGroupSet);
         parentGroup.setParentGroups(grandParentGroupSet);
 
-        revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        Exception e = assertThrows(NoPermissionException.class, () -> {
+            revokedPermissionService.checkPermissionRevokedForGroup(permission1, group);
+        });
+
+        assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' is revoked."));
     }
 }
