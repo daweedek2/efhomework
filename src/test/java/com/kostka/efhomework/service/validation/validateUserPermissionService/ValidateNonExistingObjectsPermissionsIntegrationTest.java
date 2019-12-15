@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class ValidateUserPermissionsNonExistingObjectsIntegrationTest {
+public class ValidateNonExistingObjectsPermissionsIntegrationTest {
     private static final String TEST_PERMISSION_1 = "VIEW_DETAIL";
     private static final String TEST_NAME_1 = "ALPHA";
 

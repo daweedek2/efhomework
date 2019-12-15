@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * TODO: This class is almost the same as GroupAssignment Service -> think about generic solution.
+ */
 @Service
 public class GroupAssignmentServiceImpl implements GroupAssignmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupAssignmentServiceImpl.class);

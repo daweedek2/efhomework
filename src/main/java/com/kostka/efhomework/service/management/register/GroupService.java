@@ -2,6 +2,9 @@ package com.kostka.efhomework.service.management.register;
 
 import com.kostka.efhomework.entity.Group;
 
+/**
+ * maybe also some parent EntityService -> then only overriding or extending it could be enough
+ */
 public interface GroupService {
     Group createGroup(String name);
     Group getGroup(String name);
