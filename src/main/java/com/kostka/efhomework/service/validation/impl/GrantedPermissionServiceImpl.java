@@ -3,17 +3,16 @@ package com.kostka.efhomework.service.validation.impl;
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.entity.User;
+import com.kostka.efhomework.service.validation.GrantedPermissionService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
-public final class GrantedPermissionServiceImpl {
-    private GrantedPermissionServiceImpl() {
-    }
+public class GrantedPermissionServiceImpl implements GrantedPermissionService {
 
-    public static boolean isPermissionWithRequiredGranted(final Permission permission, final User user) {
+    public boolean isPermissionWithRequiredGranted(final Permission permission, final User user) {
         final AtomicBoolean isRequiredPermissionGranted = isRequiredPermissionGranted(permission, user);
         if (isRequiredPermissionGranted.get()) {
             return true;
@@ -22,7 +21,7 @@ public final class GrantedPermissionServiceImpl {
         }
     }
 
-    public static boolean isPermissionGrantedForUserWithGroup(final Permission permission, final User user) {
+    public boolean isPermissionGrantedForUserWithGroup(final Permission permission, final User user) {
         final Set<Group> groups = user.getParentGroups();
         if (isPermissionGrantedForParentGroups(permission, groups)) {
             return true;
@@ -30,7 +29,7 @@ public final class GrantedPermissionServiceImpl {
         return isPermissionGrantedInSet(permission, user.getGrantedPermissions());
     }
 
-    public static boolean isPermissionGrantedForGroup(final Permission permission, final Group group) {
+    public boolean isPermissionGrantedForGroup(final Permission permission, final Group group) {
         final Set<Group> parentGroupSet = group.getParentGroups();
         if (isPermissionGrantedForParentGroups(permission, parentGroupSet)) {
             return true;
@@ -38,11 +37,11 @@ public final class GrantedPermissionServiceImpl {
         return isPermissionGrantedInSet(permission, group.getGrantedPermissions());
     }
 
-    public static boolean isPermissionGrantedInSet(final Permission permission, final Set<Permission> permissionSet) {
+    public boolean isPermissionGrantedInSet(final Permission permission, final Set<Permission> permissionSet) {
         return permissionSet.contains(permission);
     }
 
-    private static boolean isPermissionGrantedForParentGroups(final Permission permission,
+    private boolean isPermissionGrantedForParentGroups(final Permission permission,
                                                               final Set<Group> parentGroups) {
         for (Group group : parentGroups) {
             if (isPermissionGrantedForGroup(permission, group)) {
@@ -52,7 +51,7 @@ public final class GrantedPermissionServiceImpl {
         return false;
     }
 
-    private static AtomicBoolean isRequiredPermissionGranted(final Permission permission, final User user) {
+    private AtomicBoolean isRequiredPermissionGranted(final Permission permission, final User user) {
         final AtomicBoolean isRequiredPermissionGranted = new AtomicBoolean(false);
         permission.getRequiredPermissions().forEach(requiredPermission -> {
             if (isPermissionGrantedForUserWithGroup(requiredPermission, user)) {

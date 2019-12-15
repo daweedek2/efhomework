@@ -1,7 +1,7 @@
 package com.kostka.efhomework.service.management.assignment.impl;
 
 import com.kostka.efhomework.entity.Permission;
-import com.kostka.efhomework.service.management.assignment.RequiredPermissionAssignmentService;
+import com.kostka.efhomework.service.management.assignment.PermissionAssignmentService;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class RequiredPermissionAssignmentServiceImpl implements RequiredPermissionAssignmentService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequiredPermissionAssignmentServiceImpl.class);
+public class PermissionAssignmentServiceImpl implements PermissionAssignmentService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PermissionAssignmentServiceImpl.class);
     private PermissionService permissionService;
 
-    public RequiredPermissionAssignmentServiceImpl(final PermissionService permissionService) {
+    public PermissionAssignmentServiceImpl(final PermissionService permissionService) {
         this.permissionService = permissionService;
     }
 
