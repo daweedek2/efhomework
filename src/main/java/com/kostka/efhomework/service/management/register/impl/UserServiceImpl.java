@@ -2,6 +2,7 @@ package com.kostka.efhomework.service.management.register.impl;
 
 import com.kostka.efhomework.entity.User;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
+import com.kostka.efhomework.exception.UniqueNameException;
 import com.kostka.efhomework.repository.UserRepository;
 import com.kostka.efhomework.service.management.register.UserService;
 import org.slf4j.Logger;
@@ -23,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(final String name) {
+        validateUniqueName(name);
         final User user = new User();
-        // validate unique name
         user.setName(name);
         LOGGER.info("User '{}' is created.", user.getName());
         return this.saveUser(user);
@@ -53,5 +54,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserInDb(final String name) {
         return userRepository.existsById(name);
+    }
+
+    private void validateUniqueName(String name) {
+        if (isUserInDb(name)) {
+            throw new UniqueNameException("User with name '" + name + "' already exists.");
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.kostka.efhomework.service.management.register.impl;
 
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
+import com.kostka.efhomework.exception.UniqueNameException;
 import com.kostka.efhomework.repository.GroupRepository;
 import com.kostka.efhomework.service.management.register.GroupService;
 import org.slf4j.Logger;
@@ -24,8 +25,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Group createGroup(final String name) {
+        validateUniqueName(name);
         final Group group = new Group();
-        // validate unique name
         group.setName(name);
         LOGGER.info("Group '{}' is created.", name);
         return this.saveGroup(group);
@@ -54,5 +55,11 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public boolean isGroupInDb(final String name) {
         return groupRepository.existsById(name);
+    }
+
+    private void validateUniqueName(String name) {
+        if (isGroupInDb(name)) {
+            throw new UniqueNameException("Group with name '" + name + "' already exists.");
+        }
     }
 }

@@ -7,4 +7,5 @@ public interface PermissionService {
     Permission getPermission(String name);
     Permission savePermission(Permission permission);
     void deletePermission(String name);
+    boolean isPermissionInDb(String name);
 }

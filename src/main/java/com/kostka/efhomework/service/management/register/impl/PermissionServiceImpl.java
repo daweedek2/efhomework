@@ -2,6 +2,7 @@ package com.kostka.efhomework.service.management.register.impl;
 
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.exception.ResourceNotFoundException;
+import com.kostka.efhomework.exception.UniqueNameException;
 import com.kostka.efhomework.repository.PermissionRepository;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Permission createPermission(final String name) {
+        validateUniqueName(name);
         final Permission permission = new Permission();
         permission.setName(name);
         LOGGER.info("Permission '{}' is created.", name);
@@ -48,5 +50,16 @@ public class PermissionServiceImpl implements PermissionService {
     public void deletePermission(final String name) {
         permissionRepository.deleteById(name);
         LOGGER.info("Permission '{}' is deleted.", name);
+    }
+
+    @Override
+    public boolean isPermissionInDb(final String name) {
+        return permissionRepository.existsById(name);
+    }
+
+    private void validateUniqueName(String name) {
+        if (isPermissionInDb(name)) {
+            throw new UniqueNameException("Permission with name '" + name + "' already exists.");
+        }
     }
 }
