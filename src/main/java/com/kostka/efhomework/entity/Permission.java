@@ -19,10 +19,6 @@ public class Permission implements Serializable {
     @ManyToMany
     private Set<Permission> requiredPermissions = new HashSet<>();
 
-    public Permission() {
-        // empty constructor
-    }
-
     public String getName() {
         return name;
     }

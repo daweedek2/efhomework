@@ -25,10 +25,6 @@ public abstract class AbstractEntity {
     @ManyToMany
     private Set<Permission> revokedPermissions = new HashSet<>();
 
-    public AbstractEntity() {
-        //empty constructor
-    }
-
     public String getName() {
         return name;
     }
