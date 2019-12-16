@@ -36,7 +36,7 @@ public class ManageUserPermissionServiceImpl implements ManageUserPermissionServ
     }
 
     @Override
-    public void revokePermissionToUser(final String permission, final String userName) {
+    public void revokePermissionFromUser(final String permission, final String userName) {
         final Permission permission1 = permissionService.getPermission(permission);
         final User user = userService.getUser(userName);
         final Set<Permission> permissions = user.getRevokedPermissions();

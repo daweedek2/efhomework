@@ -57,7 +57,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
     public void checkUserPermissionIsRevokedIntegrationTest() {
         User user = userService.createUser(TEST_NAME_1);
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
-        manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+        manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_1, TEST_NAME_1);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -71,7 +71,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         Group group = groupService.createGroup(TEST_NAME_2);
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_2);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_2);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_2);
 
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
@@ -87,8 +87,8 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         Group group = groupService.createGroup(TEST_NAME_2);
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_2);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_2);
-        manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_2);
+        manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_1, TEST_NAME_1);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -101,7 +101,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
     public void checkUserPermissionIsRevokedAndGrantedIntegrationTest() {
         User user = userService.createUser(TEST_NAME_1);
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
-        manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+        manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_1, TEST_NAME_1);
         manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
@@ -118,7 +118,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         Permission reqPermission = permissionService.createPermission(TEST_PERMISSION_2);
         permissionAssignmentService.assignRequiredPermissionToPermission(TEST_PERMISSION_2, TEST_PERMISSION_1);
         manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
-        manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_2, TEST_NAME_1);
+        manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_2, TEST_NAME_1);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -136,7 +136,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_2);
         permissionAssignmentService.assignRequiredPermissionToPermission(TEST_PERMISSION_2, TEST_PERMISSION_1);
         manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_2);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_2, TEST_NAME_2);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_2, TEST_NAME_2);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -156,7 +156,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         groupAssignmentService.assignParentGroupToGroup(TEST_NAME_3, TEST_NAME_2);
         permissionAssignmentService.assignRequiredPermissionToPermission(TEST_PERMISSION_2, TEST_PERMISSION_1);
         manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_3);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_2, TEST_NAME_3);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_2, TEST_NAME_3);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -176,7 +176,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         groupAssignmentService.assignParentGroupToGroup(TEST_NAME_3, TEST_NAME_2);
         permissionAssignmentService.assignRequiredPermissionToPermission(TEST_PERMISSION_2, TEST_PERMISSION_1);
         manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_3);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_2, TEST_NAME_2);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_2, TEST_NAME_2);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -192,7 +192,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_2);
         manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_2);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_2);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
             validateUserPermissionService.checkUserPermissions(TEST_PERMISSION_1, TEST_NAME_1);
@@ -209,7 +209,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_2);
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_3);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_2);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_2);
         manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_3);
 
         Exception e = assertThrows(NoPermissionException.class, () -> {
@@ -227,7 +227,7 @@ public class ValidateUserRevokedPermissionsIntegrationTest {
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
         userAssignmentService.assignUserToGroup(TEST_NAME_1, TEST_NAME_2);
         groupAssignmentService.assignParentGroupToGroup(TEST_NAME_3, TEST_NAME_2);
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_3);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_3);
         manageGroupPermissionService.grantPermissionToGroup(TEST_PERMISSION_1, TEST_NAME_2);
         manageUserPermissionService.grantPermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
 

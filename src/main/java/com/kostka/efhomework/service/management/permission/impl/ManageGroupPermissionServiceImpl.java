@@ -36,7 +36,7 @@ public class ManageGroupPermissionServiceImpl implements ManageGroupPermissionSe
     }
 
     @Override
-    public void revokePermissionToGroup(final String permission, final String groupName) {
+    public void revokePermissionFromGroup(final String permission, final String groupName) {
         final Permission permission1 = permissionService.getPermission(permission);
         final Group group = groupService.getGroup(groupName);
         final Set<Permission> permissions = group.getRevokedPermissions();

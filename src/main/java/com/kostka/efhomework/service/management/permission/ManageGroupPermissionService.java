@@ -7,5 +7,5 @@ package com.kostka.efhomework.service.management.permission;
 
 public interface ManageGroupPermissionService {
     void grantPermissionToGroup(String permission, String groupName);
-    void revokePermissionToGroup(String permission, String groupName);
+    void revokePermissionFromGroup(String permission, String groupName);
 }

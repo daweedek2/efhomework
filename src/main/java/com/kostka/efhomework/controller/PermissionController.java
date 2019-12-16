@@ -61,7 +61,7 @@ public class PermissionController extends AbstractController{
             return INDEX;
         }
         manageUserPermissionService
-                .revokePermissionToUser(
+                .revokePermissionFromUser(
                         permissionFormDTO.getName(),
                         permissionFormDTO.getTargetName());
         addModelAttributes(model);
@@ -97,7 +97,7 @@ public class PermissionController extends AbstractController{
             return INDEX;
         }
         manageGroupPermissionService
-                .revokePermissionToGroup(
+                .revokePermissionFromGroup(
                         permissionFormDTO.getName(),
                         permissionFormDTO.getTargetName());
         addModelAttributes(model);

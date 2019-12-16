@@ -96,7 +96,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
         Set<Permission> permissions = groupService.getGroup(TEST_NAME_1).getRevokedPermissions();
         int countBefore = permissions.size();
 
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_1);
 
         assertEquals(countBefore + 1, permissions.size());
         assertTrue(permissions.contains(permission));
@@ -107,7 +107,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
 
         Exception e = assertThrows(ResourceNotFoundException.class, () -> {
-            manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+            manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
         Assertions.assertTrue(e.getMessage().contains("Group '" + TEST_NAME_1 + "' does not exist."));
@@ -118,7 +118,7 @@ public class ManageGroupPermissionServiceIntegrationTest {
         Group group = groupService.createGroup(TEST_NAME_1);
 
         Exception e = assertThrows(ResourceNotFoundException.class, () -> {
-            manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+            manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_1);
         });
 
         Assertions.assertTrue(e.getMessage().contains("Permission '" + TEST_PERMISSION_1 + "' does not exist."));
@@ -129,10 +129,10 @@ public class ManageGroupPermissionServiceIntegrationTest {
         Group group = groupService.createGroup(TEST_NAME_1);
         Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
         Set<Permission> permissions = groupService.getGroup(TEST_NAME_1).getRevokedPermissions();
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_1);
         int countBefore = permissions.size();
 
-        manageGroupPermissionService.revokePermissionToGroup(TEST_PERMISSION_1, TEST_NAME_1);
+        manageGroupPermissionService.revokePermissionFromGroup(TEST_PERMISSION_1, TEST_NAME_1);
 
         assertEquals(countBefore, permissions.size());
         assertTrue(permissions.contains(permission));

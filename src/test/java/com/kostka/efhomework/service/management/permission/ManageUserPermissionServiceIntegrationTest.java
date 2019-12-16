@@ -95,7 +95,7 @@ public class ManageUserPermissionServiceIntegrationTest {
             Set<Permission> permissions = userService.getUser(TEST_NAME_1).getRevokedPermissions();
             int countBefore = permissions.size();
 
-            manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_1, TEST_NAME_1);
 
             assertEquals(countBefore + 1, permissions.size());
             assertTrue(permissions.contains(permission));
@@ -128,10 +128,10 @@ public class ManageUserPermissionServiceIntegrationTest {
             User user = userService.createUser(TEST_NAME_1);
             Permission permission = permissionService.createPermission(TEST_PERMISSION_1);
             Set<Permission> permissions = userService.getUser(TEST_NAME_1).getRevokedPermissions();
-            manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_1, TEST_NAME_1);
             int countBefore = permissions.size();
 
-            manageUserPermissionService.revokePermissionToUser(TEST_PERMISSION_1, TEST_NAME_1);
+            manageUserPermissionService.revokePermissionFromUser(TEST_PERMISSION_1, TEST_NAME_1);
 
             assertEquals(countBefore, permissions.size());
             assertTrue(permissions.contains(permission));

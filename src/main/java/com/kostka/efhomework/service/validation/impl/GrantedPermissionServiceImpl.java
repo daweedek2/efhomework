@@ -7,7 +7,6 @@ import com.kostka.efhomework.service.validation.GrantedPermissionService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class GrantedPermissionServiceImpl implements GrantedPermissionService {
@@ -20,8 +19,7 @@ public class GrantedPermissionServiceImpl implements GrantedPermissionService {
      */
     @Override
     public boolean isPermissionWithRequiredGranted(final Permission permission, final User user) {
-        final AtomicBoolean isRequiredPermissionGranted = isRequiredPermissionGranted(permission, user);
-        if (isRequiredPermissionGranted.get()) {
+        if (isRequiredPermissionGranted(permission, user)) {
             return true;
         } else {
             return isPermissionGrantedForUserWithGroup(permission, user);
@@ -90,13 +88,12 @@ public class GrantedPermissionServiceImpl implements GrantedPermissionService {
      * @param user Checked user.
      * @return true if the required permission is granted for the user.
      */
-    private AtomicBoolean isRequiredPermissionGranted(final Permission permission, final User user) {
-        final AtomicBoolean isRequiredPermissionGranted = new AtomicBoolean(false);
-        permission.getRequiredPermissions().forEach(requiredPermission -> {
+    private boolean isRequiredPermissionGranted(final Permission permission, final User user) {
+        for (Permission requiredPermission : permission.getRequiredPermissions()) {
             if (isPermissionGrantedForUserWithGroup(requiredPermission, user)) {
-                isRequiredPermissionGranted.set(true);
+                return true;
             }
-        });
-        return isRequiredPermissionGranted;
+        }
+        return false;
     }
 }
