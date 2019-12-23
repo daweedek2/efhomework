@@ -8,7 +8,6 @@ import com.kostka.efhomework.service.management.assignment.GroupAssignmentServic
 import com.kostka.efhomework.service.management.assignment.PermissionAssignmentService;
 import com.kostka.efhomework.service.management.assignment.UserAssignmentService;
 import com.kostka.efhomework.service.management.permission.ManageGroupPermissionService;
-import com.kostka.efhomework.service.management.permission.ManageUserPermissionService;
 import com.kostka.efhomework.service.management.register.GroupService;
 import com.kostka.efhomework.service.management.register.PermissionService;
 import com.kostka.efhomework.service.management.register.UserService;

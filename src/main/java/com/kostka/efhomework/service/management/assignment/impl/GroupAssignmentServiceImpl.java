@@ -27,25 +27,25 @@ public class GroupAssignmentServiceImpl implements GroupAssignmentService {
     @Override
     public void assignParentGroupToGroup(final String parentGroupName, final String groupName) {
         validatePresenceOfParentGroup(groupName);
-        final Group parentGroup = groupService.getGroup(parentGroupName);
-        final Group group = groupService.getGroup(groupName);
+        final Group parentGroup = groupService.get(parentGroupName);
+        final Group group = groupService.get(groupName);
         final Set<Group> groupSet = group.getParentGroups();
         groupSet.add(parentGroup);
-        groupService.saveGroup(group);
+        groupService.save(group);
         LOGGER.info("Parent group '{}' assigned to the group '{}'.", parentGroupName, groupName);
     }
 
     @Override
     public void deAssignParentGroupFromGroup(final String parentGroupName, final String groupName) {
-        final Group group = groupService.getGroup(groupName);
+        final Group group = groupService.get(groupName);
         final Set<Group> groupSet = group.getParentGroups();
-        groupSet.remove(groupService.getGroup(parentGroupName));
-        groupService.saveGroup(group);
+        groupSet.remove(groupService.get(parentGroupName));
+        groupService.save(group);
         LOGGER.info("Parent group '{}' de-assigned from the group '{}'.", parentGroupName, groupName);
     }
 
     private void validatePresenceOfParentGroup(final String groupName) {
-        final Group group = groupService.getGroup(groupName);
+        final Group group = groupService.get(groupName);
         if (!group.getParentGroups().isEmpty()) {
             throw new ParentGroupRestrictionException("Group '" + groupName + "' has already one parent group.");
         }

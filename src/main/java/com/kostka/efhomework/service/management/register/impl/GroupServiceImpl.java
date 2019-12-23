@@ -30,11 +30,11 @@ public class GroupServiceImpl implements GroupService {
         final Group group = new Group();
         group.setName(name);
         LOGGER.info("Group '{}' is created.", name);
-        return this.saveGroup(group);
+        return this.save(group);
     }
 
     @Override
-    public Group getGroup(final String name) {
+    public Group get(final String name) {
         final Optional<Group> group = groupRepository.findById(name);
         if (group.isEmpty()) {
             throw new ResourceNotFoundException("Group '" + name + "' does not exist.");
@@ -43,7 +43,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group saveGroup(final @NonNull Group group) {
+    public Group save(final @NonNull Group group) {
         return groupRepository.save(group);
     }
 

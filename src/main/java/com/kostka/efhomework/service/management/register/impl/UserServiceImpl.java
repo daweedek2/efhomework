@@ -29,11 +29,11 @@ public class UserServiceImpl implements UserService {
         final User user = new User();
         user.setName(name);
         LOGGER.info("User '{}' is created.", user.getName());
-        return this.saveUser(user);
+        return this.save(user);
     }
 
     @Override
-    public User getUser(final String name) {
+    public User get(final String name) {
         final Optional<User> user = userRepository.findById(name);
         if (user.isEmpty()) {
             throw new ResourceNotFoundException("User '" + name + "' does not exist.");
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(final User user) {
+    public User save(final User user) {
         return userRepository.save(user);
     }
 

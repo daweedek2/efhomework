@@ -42,7 +42,7 @@ public class ValidateUserPermissionServiceImpl implements ValidateUserPermission
     @Override
     public void checkUserPermissions(final String permissionName, final String userName) {
         final Permission permission = permissionService.getPermission(permissionName);
-        final User user = userService.getUser(userName);
+        final User user = userService.get(userName);
         revokedPermissionService.checkPermissionWithRequiredRevoked(permission, user);
         if (grantedPermissionService.isPermissionWithRequiredGranted(permission, user)) {
             LOGGER.info("SUCCESS. Permission '{}' is granted for user '{}'.", permission.getName(), user.getName());

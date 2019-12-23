@@ -1,5 +1,6 @@
 package com.kostka.efhomework.service.validation.impl;
 
+import com.kostka.efhomework.entity.AbstractEntity;
 import com.kostka.efhomework.entity.Group;
 import com.kostka.efhomework.entity.Permission;
 import com.kostka.efhomework.entity.User;
@@ -20,32 +21,20 @@ public class RevokedPermissionServiceImpl implements RevokedPermissionService {
      */
     @Override
     public void checkPermissionWithRequiredRevoked(final Permission permission, final User user) {
-        permission.getRequiredPermissions().forEach(required -> checkPermissionRevokedForUserWithGroup(required, user));
-        checkPermissionRevokedForUserWithGroup(permission, user);
+        permission.getRequiredPermissions().forEach(required -> checkPermissionRevoked(required, user));
+        checkPermissionRevoked(permission, user);
     }
 
     /**
      * Method that checks if permission is revoked for the user and his parent groups (excluding required permission).
      * If so, NoPermissionException is thrown.
      * @param permission Checked permission.
-     * @param user Checked user.
+     * @param entity Checked entity.
      */
     @Override
-    public void checkPermissionRevokedForUserWithGroup(final Permission permission, final User user) {
-        user.getParentGroups().forEach(group -> checkPermissionRevokedForGroup(permission, group));
-        checkPermissionRevokedInSet(permission, user.getRevokedPermissions());
-    }
-
-    /**
-     * Method that checks if permission is revoked for the group and its parent group (excluding required permission).
-     * If so, NoPermissionException is thrown.
-     * @param permission Checked permission.
-     * @param group Checked group.
-     */
-    @Override
-    public void checkPermissionRevokedForGroup(final Permission permission, final Group group) {
-        group.getParentGroups().forEach(parentGroup -> checkPermissionRevokedForGroup(permission, parentGroup));
-        checkPermissionRevokedInSet(permission, group.getRevokedPermissions());
+    public void checkPermissionRevoked(final Permission permission, final AbstractEntity entity) {
+        entity.getParentGroups().forEach(group -> checkPermissionRevoked(permission, group));
+        checkPermissionRevokedInSet(permission, entity.getRevokedPermissions());
     }
 
     /**

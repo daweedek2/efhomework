@@ -27,21 +27,21 @@ public class UserAssignmentServiceImpl implements UserAssignmentService {
 
     @Override
     public void assignUserToGroup(final String userName, final String groupName) {
-        final User user = userService.getUser(userName);
-        final Group group = groupService.getGroup(groupName);
+        final User user = userService.get(userName);
+        final Group group = groupService.get(groupName);
         final Set<Group> groups = user.getParentGroups();
         groups.add(group);
-        userService.saveUser(user);
+        userService.save(user);
         LOGGER.info("User '{}' assigned to the group '{}'.", userName, groupName);
     }
 
     @Override
     public void deAssignUserFromGroup(final String userName, final String groupName) {
-        final User user = userService.getUser(userName);
-        final Group group = groupService.getGroup(groupName);
+        final User user = userService.get(userName);
+        final Group group = groupService.get(groupName);
         final Set<Group> groups = user.getParentGroups();
         groups.remove(group);
-        userService.saveUser(user);
+        userService.save(user);
         LOGGER.info("User '{}' de-assigned from the group '{}'.", userName, groupName);
     }
 }
